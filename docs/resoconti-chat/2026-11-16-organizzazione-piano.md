@@ -56,7 +56,7 @@ Domande complete ed esito aggiornato: [`docs/test/2026-11-16-test-ingresso-setti
 | `docs/libro/03-shell-strumenti-essenziali.md` | Primo capitolo del libro, nato dal test d'ingresso |
 | `.claude/settings.local.json` | Permesso di lettura su `~/Desktop/Academy#8` |
 | `docs/libro/README.md` | Indice del libro di testo (26 capitoli + 2 appendici, tutti da scrivere) |
-| `docs/resoconti/2026-11-16-organizzazione-piano.md` | Questo resoconto |
+| `docs/resoconti-chat/2026-11-16-organizzazione-piano.md` | Questo resoconto |
 
 ## Cose che devo fare io
 

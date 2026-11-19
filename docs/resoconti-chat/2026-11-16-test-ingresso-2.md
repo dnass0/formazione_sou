@@ -53,7 +53,7 @@ Nel libro:
 | File | Motivo |
 |---|---|
 | `docs/test/2026-11-16-test-ingresso-settimana-6.md` | Esito della domanda 5 |
-| `docs/resoconti/2026-11-16-test-ingresso-2.md` | Questo resoconto |
+| `docs/resoconti-chat/2026-11-16-test-ingresso-2.md` | Questo resoconto |
 | `docs/README.md` | Aggiunto questo resoconto all'elenco |
 | `CLAUDE.md` | Regola fondamentale: esplicitare sempre il contesto delle domande |
 | `docs/libro/04-file-system-inode-link.md` | Nuovo capitolo: inode, directory, link, cancellazione, recupero, date |

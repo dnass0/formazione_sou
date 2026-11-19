@@ -39,8 +39,8 @@
 
 | File | Motivo |
 |---|---|
-| `docs/resoconti/2026-11-18-file-system-directory.md` | Questo resoconto (separato da quello del 17/11 su richiesta) |
-| `docs/resoconti/2026-11-17-esercizi-cap04.md` | Tolte le parti del 18/11 |
+| `docs/resoconti-chat/2026-11-18-file-system-directory.md` | Questo resoconto (separato da quello del 17/11 su richiesta) |
+| `docs/resoconti-chat/2026-11-17-esercizi-cap04.md` | Tolte le parti del 18/11 |
 | `docs/README.md` | Aggiunto questo resoconto all'elenco |
 | `docs/libro/04-file-system-inode-link.md` | §4.1 voce di directory, `.` e `..`, link count; §4.2 directory shortform di XFS; §5.1 e §5.3 niente hard link tra file system; §7.1 `relatime` confronta anche la ctime; errori comuni |
 | `CLAUDE.md` | Regola: riscrivere sempre i passi da eseguire |

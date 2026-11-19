@@ -35,7 +35,7 @@
 
 | File | Motivo |
 |---|---|
-| `docs/resoconti/2026-11-17-esercizi-cap04.md` | Questo resoconto |
+| `docs/resoconti-chat/2026-11-17-esercizi-cap04.md` | Questo resoconto |
 | `docs/README.md` | Aggiunto questo resoconto all'elenco |
 | `docs/libro/03-shell-strumenti-essenziali.md` | §2 ampliato: `/proc`, `/dev/pts`, fd 255, `cwd`, directory corrente ≠ file aperto |
 | `docs/libro/04-file-system-inode-link.md` | §2 frammentazione interna, "totale", punto SELinux; §3 riuso e posizionamento degli inode in XFS; §5.2 contenuto esatto e percorso relativo dei link simbolici |

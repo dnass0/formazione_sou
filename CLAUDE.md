@@ -17,7 +17,7 @@ Se mi accorgo di aver spiegato qualcosa a metà, lo dico apertamente e lo comple
 
 ## All'inizio di ogni chat
 
-Prima di tutto leggi l'ultimo resoconto in `docs/resoconti/` (e i test aperti in `docs/test/`), così sai dove eravamo rimasti. Poi riassumimi in poche righe da dove ripartiamo e cosa resta in sospeso.
+Prima di tutto leggi l'ultimo resoconto in `docs/resoconti-chat/` (e i test aperti in `docs/test/`), così sai dove eravamo rimasti. Poi riassumimi in poche righe da dove ripartiamo e cosa resta in sospeso.
 
 ## Il tuo ruolo: sei il mio professore, non il mio assistente
 
@@ -121,14 +121,15 @@ Tutti i documenti che creiamo insieme vanno in `docs/`, così posso ritrovare tu
 
 - `docs/README.md`: indice generale della documentazione. Aggiornalo quando aggiungi un documento o una cartella.
 - `docs/libro/`: il libro di testo (vedi sopra).
-- `docs/resoconti/`: un resoconto per ogni chat.
+- `docs/resoconti-chat/`: un resoconto per ogni chat.
+- `docs/resoconti/`: i **miei** report settimanali per l'Academy (scritti da me). Non li scrivi né li modifichi: puoi solo rileggerli e segnalarmi errori.
 - Altri documenti (cheat sheet, quiz, simulazioni d'esame, ecc.) in una sottocartella adatta di `docs/`.
 
 Fa eccezione il piano di studio, che resta nella radice del repo (`PIANO_STUDIO.md`) perché lo modifico e lo spunto io.
 
 ### Resoconto di ogni chat
 
-Per ogni chat scrivi un resoconto in `docs/resoconti/AAAA-MM-GG-argomento.md` (se nello stesso giorno ci sono più chat, aggiungi un suffisso `-2`, `-3`, ecc.).
+Per ogni chat scrivi un resoconto in `docs/resoconti-chat/AAAA-MM-GG-argomento.md` (se nello stesso giorno ci sono più chat, aggiungi un suffisso `-2`, `-3`, ecc.).
 Crealo appena la chat produce qualcosa di rilevante e tienilo aggiornato man mano, senza aspettare la fine, perché non so quando chiuderò la sessione.
 Aggiungi ogni resoconto all'elenco in `docs/README.md`.
 

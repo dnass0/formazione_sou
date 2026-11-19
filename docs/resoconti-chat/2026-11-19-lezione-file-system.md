@@ -23,13 +23,16 @@
 
 | File | Motivo |
 |---|---|
-| `docs/resoconti/2026-11-19-lezione-file-system.md` | Questo resoconto |
+| `docs/resoconti-chat/2026-11-19-lezione-file-system.md` | Questo resoconto |
 | `docs/README.md` | Aggiunto questo resoconto |
 | `docs/libro/14-storage-dischi-partizioni-lvm.md` | Nuovo capitolo: dispositivi a blocchi, major/minor, `lsblk` |
 | `docs/libro/README.md` | Capitolo 14 in corso |
 | `docs/glossario/inglese-tecnico-man.md` | Nuovo: glossario dell'inglese delle pagine `man` (difficoltà con i termini tecnici in inglese) |
 | `docs/libro/03-shell-strumenti-essenziali.md` | Nuovi §8 `awk` e §9 `sed`, errori comuni, tabella dei comandi |
 | `CLAUDE.md` | Regola n. 1 in cima |
+| `docs/resoconti/` → `docs/resoconti-chat/` | Cartella dei resoconti delle chat rinominata su richiesta; aggiornati i riferimenti in `CLAUDE.md`, `docs/README.md` e nei resoconti |
+| `README.md` (radice, nuovo) | Presentazione del repository per GitHub: struttura, libro, laboratorio, come è prodotto il materiale, flusso Git |
+| `docs/resoconti/` (nuova) | Report settimanali dell'utente copiati da `~/Desktop/Academy#8` (`.md` e `.pdf`) |
 | `esercizi/extras/` | Copiata da `~/Desktop/Academy#8/extras` su richiesta (esercizi extra e corretti, immagini, script), senza i file `.DS_Store` |
 | `esercizi/rubrica.csv`, `esercizi/esercizio_bonus_Paolo.md` | Copiati dalla VM (`~/condivisa/esercizi`, via `scp`) su richiesta: soluzione dell'esercizio bonus scritta dall'utente |
 
@@ -44,7 +47,7 @@
 - Esercizio bonus, **prima versione dell'utente** (funzionante sui suoi dati): `grep -E 'paoli|nasso' rubrica.csv | awk -F, '{ print $2 }' | sed 's/^./\U&/'`. Trovato da solo `\U` (estensione GNU). Secondo tentativo bloccato da apici tipografici (‘ ’) → prompt `>`, uscito correttamente con Ctrl+C. Da rivedere: `grep` su tutta la riga prima di `awk` (trova il nome anche in nome/indirizzo o dentro parole più lunghe), maiuscole/minuscole nella selezione, spiegazione di `^.` e `\U&`.
 - Esercizio bonus, **versione finale dell'utente**: `awk -F, '{ print $2 }' rubrica.csv | grep -Eix 'paoli|de mattia' | sed 's/./\U&/'`. Passaggi: file letto dal primo comando (prima era su `grep` e `awk` restava in attesa della tastiera), `grep` spostato dopo `awk`, `-i`, poi `-w` (parola intera: accetterebbe `de paoli`) e infine `-x` (riga intera). Errore sul `sed`: `^*` (in BRE `*` dopo `^` è un asterisco letterale). In attesa: output finale e risposte su `\U`/`\u`/`&` e sul perché `^` non serve.
 - ✅ Esercizio bonus completato e documentato dall'utente (`-x` aggiunto, "oppure" corretto: aveva scambiato `|` per `&&`; spiegati i tre significati di `|`). Ancora aperte, facoltative: righe di prova per mostrare `-x`, ipotesi di interpretazione, spiegazione di `\U`/`&` e perché `s/^/\U&/` non cambia niente.
-- ✅ Repository Git creato dall'utente con i comandi dati da Claude su richiesta esplicita ("dimmi proprio i comandi, ho poco tempo"): identità globale, `init.defaultBranch main`, `git init`, `.gitignore` (`.DS_Store`, `.claude/settings.local.json`), primo commit `04861a2`. Spiegato il modello: repository, `.git/`, working tree, staging area, commit. In corso: collegamento a GitHub via SSH.
+- ✅ Repository Git creato dall'utente con i comandi dati da Claude su richiesta esplicita ("dimmi proprio i comandi, ho poco tempo"): identità globale, `init.defaultBranch main`, `git init`, `.gitignore` (`.DS_Store`, `.claude/settings.local.json`), primo commit `04861a2`. Spiegato il modello: repository, `.git/`, working tree, staging area, commit. Collegato a GitHub: chiave SSH `id_ed25519` registrata, remoto `origin` = `git@github.com:dnass0/formazione_sou.git` (il repo su GitHub era vuoto, nessun merge necessario), `git push -u origin main`, secondo commit `e632fe6` di prova. Ciclo quotidiano: `git status`, `git add .`, `git commit -m "..."`, `git push`.
 - Da riprendere: lettura guidata di `index(s, t)` in `man awk` (tre domande: argomenti, cosa restituisce, indici che partono da 1) e altre due funzioni di *String Functions* lette da solo con il glossario.
 - Lezione sui file system sospesa alla domanda su `fd00h` → 253:0 e sulla definizione di partizione.
 
