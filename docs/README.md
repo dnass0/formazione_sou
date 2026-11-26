@@ -14,6 +14,7 @@ Tutto il materiale prodotto durante lo studio.
 
 Fuori da `docs/`:
 - il piano di studio è in [`PIANO_STUDIO.md`](../PIANO_STUDIO.md);
+- le lezioni di scripting a problemi e il loro laboratorio sono in [`studio/`](../studio/README.md);
 - gli esercizi svolti sono in [`esercizi/`](../esercizi/);
 - la presentazione del repository è nel [`README.md`](../README.md) principale.
 
@@ -26,3 +27,6 @@ Fuori da `docs/`:
 | 17/11/2026 | [Esercizi del capitolo 04 (inode e link)](resoconti-chat/2026-11-17-esercizi-cap04.md) |
 | 18/11/2026 | [Capitolo 04: date, hard link tra file system, com'è fatta una directory](resoconti-chat/2026-11-18-file-system-directory.md) |
 | 19/11/2026 | [Lezione sui file system](resoconti-chat/2026-11-19-lezione-file-system.md) |
+| 25/11/2026 | [Lezione sui file system: dal campo `Device:` alle partizioni](resoconti-chat/2026-11-25-partizioni.md) |
+| 26/11/2026 | [Confronto con la Rocky Linux Admin Guide (cap. 8)](resoconti-chat/2026-11-26-confronto-admin-guide.md) |
+| 26/11/2026 | [Integrazione delle lezioni di scripting a problemi](resoconti-chat/2026-11-26-lezioni-scripting.md) |

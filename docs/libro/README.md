@@ -3,6 +3,8 @@
 Lezioni teoriche scritte man mano che affrontiamo gli argomenti.
 Ogni capitolo cresce nel tempo: le aggiunte sono annotate nella sua sezione "Cronologia".
 
+**Versione PDF:** [`pdf/libro-devops-academy.pdf`](pdf/libro-devops-academy.pdf), con tutti i capitoli uniti, solo scale di grigi. Si rigenera con `sh docs/libro/pdf/genera-pdf.sh` (servono `pandoc` e `typst`).
+
 Stato: ⬜ da scrivere · 🟨 in corso · ✅ completo
 
 ## Parte I – Track 1: Linux System Administration & Networking

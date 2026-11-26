@@ -69,6 +69,28 @@ Le posizioni della tabella sono **fisse**, come le caselle di un casellario: qua
 
 Nota anche che l'inode contiene solo i **numeri** di utente e gruppo. È `ls` che li trasforma in nomi, cercandoli in `/etc/passwd` e `/etc/group`. Se quell'utente venisse cancellato dal sistema, `ls -l` non troverebbe più il nome e mostrerebbe il numero.
 
+#### 3.1 Dove sta fisicamente la tabella degli inode
+
+Gli inode stanno **sul disco, dentro la partizione** (o il volume logico) che contiene il file system. Non in RAM, non in un file, non in un'altra partizione. Li scrive `mkfs` quando crea il file system: sono una delle "righe disegnate sul quaderno" del §1. Il kernel ne tiene in RAM una copia solo per gli inode che sta usando (la *inode cache*), ma l'originale è sul disco.
+
+Una partizione formattata contiene quindi tre tipi di cose:
+
+| Zona | Cosa contiene |
+|---|---|
+| **Superblocco** | La "scheda" del file system intero: tipo, dimensione del blocco, quanti blocchi e quanti inode ci sono, quanti sono liberi, **dove** si trovano le altre strutture. |
+| **Metadati** | Tabelle degli inode, mappe dei blocchi liberi e occupati (le *bitmap* in ext4, alberi in XFS). |
+| **Blocchi dati** | Il contenuto dei file e, se non stanno nell'inode, gli elenchi di nomi delle directory. |
+
+**Come fa il kernel a trovare la tabella degli inode?** Legge il superblocco, che sta in una **posizione fissa** rispetto all'inizio della partizione: in ext4 al byte 1024, in XFS proprio al settore 0 della partizione. È lo stesso schema della tabella delle partizioni (capitolo 14 §5): ci si appoggia a una posizione nota in anticipo, e da lì si trova tutto il resto. Per questo un file system danneggiato proprio nel superblocco diventa illeggibile, e i file system ne tengono delle **copie** sparse sul disco.
+
+**ext4: tabelle fisse, decise da `mkfs`.** La partizione è divisa in **gruppi di blocchi** (*block groups*), di solito da 128 MiB. Ogni gruppo ha la sua bitmap dei blocchi, la sua bitmap degli inode, il suo pezzo di **tabella degli inode** (inode da 256 byte) e poi i blocchi dati. Il numero di inode dice in quale gruppo cercarlo: gli inode sono numerati di seguito, gruppo dopo gruppo. Il numero totale di inode è **deciso una volta per tutte** da `mkfs`, di default uno ogni 16 KiB di spazio. Conseguenza: un file system ext4 pieno di file minuscoli può **esaurire gli inode** con lo spazio ancora libero. `df -h` mostra spazio libero, ma la creazione di un file fallisce con *No space left on device*. Si diagnostica con `df -i`.
+
+**XFS: inode creati quando servono.** La partizione è divisa in **gruppi di allocazione** (*allocation groups*, §3), ognuno con una copia del superblocco all'inizio. XFS non prepara una tabella fissa: crea gli inode **a gruppi di 64, quando servono**, nello spazio libero del gruppo di allocazione, e tiene traccia di dove li ha messi con un albero di ricerca. "A gruppi di 64" vuol dire: quando serve un inode e non ce n'è uno libero, XFS prende un pezzo di spazio libero da 64 × 512 byte = 32 KiB (8 blocchi da 4 KiB) e lo trasforma tutto in 64 caselle per inode. Ne usa una per il file nuovo e tiene le altre 63 pronte per i file successivi. Lo fa a pacchetti per tre motivi: meno lavoro (una preparazione ogni 64 file), inode vicini tra loro (si leggono insieme) e contabilità semplice (per ogni pacchetto basta un numero da 64 bit, un bit per casella: 1 = libera, 0 = occupata). Per questo il numero di inode **codifica la posizione** (gruppo di allocazione, blocco, posizione nel blocco), e per questo l'inode di un file finisce vicino a quello della sua directory. C'è solo un tetto massimo: una percentuale dello spazio (opzione `imaxpct`) che gli inode possono occupare. Il totale che `df -i` mostra su XFS è quindi teorico.
+
+**Attenzione a non confondere due cose diverse:**
+- ogni file e ogni directory **ha** un inode, sempre, in qualunque file system;
+- in XFS una directory piccola può avere **il suo contenuto** (l'elenco dei nomi) scritto dentro il proprio inode, invece che in un blocco dati (§4.2). Non è la directory a "stare in un inode": è il suo elenco di nomi che sta nello spazio libero del suo stesso inode.
+
 ### 4. La directory: una tabella di nomi
 
 Se il nome non sta nell'inode, dove sta? In una **directory**.
@@ -305,6 +327,7 @@ Altre opzioni: `noatime` (mai) e `strictatime` (sempre). Esiste anche `O_NOATIME
 - **Confondere ctime con la data di creazione.**
 - **Aspettarsi che la atime cambi a ogni lettura:** con `relatime` non succede.
 - **Pensare che `relatime` guardi solo la mtime o il contenuto:** confronta la atime anche con la ctime, quindi anche una modifica dei soli metadati (per esempio `chmod`) fa aggiornare la atime alla lettura successiva.
+- **"No space left on device" con `df -h` che mostra spazio libero:** su ext4 possono essere finiti gli inode; controlla con `df -i`.
 - **Link simbolico che "non funziona più":** controlla se il percorso a cui punta esiste ancora.
 
 ## Collegamento con l'esame EX200
@@ -347,6 +370,7 @@ Le basi del capitolo servono anche per *"Create and configure file systems"* e *
 
 ## Cronologia
 
+- 2026-11-26: nuovo §3.1, dove sta fisicamente la tabella degli inode: superblocco in posizione fissa, gruppi di blocchi e inode fissi in ext4 (esaurimento degli inode, `df -i`), inode allocati a gruppi di 64 in XFS; distinzione tra "avere un inode" e "contenuto della directory dentro l'inode" (domanda di ripasso).
 - 2026-11-18: nuovo §4.2, directory *shortform* di XFS: l'elenco dei nomi sta dentro l'inode (`Blocchi: 0`), calcolo dei 26 e dei 9 byte con l'esempio reale di `link/`. Corretto subito dopo: in XFS solo directory e link simbolici stanno nell'inode, i file regolari usano sempre blocchi (page cache).
 - 2026-11-18: nuovo §4.1, com'è fatta una voce di directory sul disco (campi di `ext4_dir_entry_2`), tipo copiato nella voce, `.` e `..` e link count delle directory (domanda "dove stanno davvero i nomi?").
 - 2026-11-18: §5.1 e §5.3, perché non esistono hard link tra file system diversi (`EXDEV`) e come riconoscerli con il campo `Device:` di `stat` (dall'esercizio 6).

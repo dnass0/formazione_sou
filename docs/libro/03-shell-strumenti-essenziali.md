@@ -343,6 +343,23 @@ Tutti e due non leggono le pagine ogni volta: consultano un **indice** (un picco
 
 Esempio: cercando come cambiare una password, `apropos` trova sia `chpasswd(8)` sia `passwd(1)`. Leggere la DESCRIPTION chiarisce la differenza: `chpasswd` legge righe `nome:password` dallo **standard input** ed è pensato per aggiornare **molti utenti insieme** (ad esempio da uno script, con una redirezione: paragrafo 3); `passwd` cambia la password di **un** utente in modo interattivo.
 
+**Come cercare bene con `apropos`.** Ogni pagina `man` inizia con una sezione NAME di una sola riga: `nome - descrizione breve`. L'indice contiene solo quelle righe, e `apropos` stampa le righe in cui compare la parola cercata, così:
+
+```
+passwd (1)           - update user's authentication tokens
+│       │              └── descrizione breve (dalla sezione NAME)
+│       └── sezione del manuale
+└── nome della pagina
+```
+
+Conseguenze pratiche:
+1. **Cerca in inglese**, con le parole che userebbe chi ha scritto la descrizione breve: verbi come *resize*, *grow*, *create*, *change*, *list*, e nomi come *filesystem*, *volume*, *user*.
+2. La parola viene cercata **come pezzo di testo**, anche dentro parole più lunghe: `ext` trova anche *extend*, *text*, *next*. Più la parola è corta, più risultati inutili.
+3. Con **più parole**, di default basta che **una** compaia (risultati che si sommano); esiste un'opzione per richiedere che compaiano **tutte** (esercizio 11).
+4. Puoi limitare la ricerca a una **sezione**: i comandi di amministrazione stanno nella sezione **8** (`man apropos`, opzione per la sezione).
+5. Puoi filtrare l'output con `grep` (paragrafo 5), visto che è testo che passa in una pipe.
+6. Se una ricerca dà troppi risultati, **restringi** (più parole, sezione, `grep`); se non ne dà, **allarga** (sinonimi, parola più generica).
+
 ### 8. Elaborare testo a colonne: `awk`
 
 `awk` è un piccolo linguaggio di programmazione pensato per il testo diviso in colonne (file CSV, `/etc/passwd`, output di altri comandi). Su Rocky il comando `awk` è la versione GNU (`gawk`).
@@ -547,3 +564,4 @@ Obiettivo ufficiale *"Understand and use essential tools"*, in particolare:
 - 2026-11-16: aggiunti i paragrafi 6 (archivi e compressione) e 7 (documentazione locale: sezioni del manuale, ordine di ricerca, `MANSECT`, `apropos`, `whatis`), dal test d'ingresso della settimana 6 (domande 7, 8 e 9).
 - 2026-11-16: aggiunto il paragrafo 3.6 ("leggere e scrivere lo stesso file"), spiegato su richiesta durante il test d'ingresso; l'esercizio 3 è stato sostituito con una variante.
 - 2026-11-16: capitolo creato dopo il test d'ingresso della settimana 6 (domande 1–4). Paragrafi: la shell e `fork`/`exec`, file descriptor, redirezioni e loro ordine, pipe a basso livello, `grep` con le àncore `^` e `$`.
+- 2026-11-25: §7.4, strategia di ricerca con `apropos` (com'è fatta una riga dell'indice, parole in inglese, ricerca come sottostringa, più parole, sezione 8, filtro con `grep`), nata dalla difficoltà a trovare il comando per ingrandire ext4.
