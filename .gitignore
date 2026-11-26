@@ -4,3 +4,6 @@
 # Palestra di scripting: i dati si rigenerano con prepara.sh, gli script restano
 studio/lab/scripting/palestra/*/dati/
 studio/lab/scripting/palestra/*/uscita/
+
+# Obsidian: configurazione locale del vault
+.obsidian/
